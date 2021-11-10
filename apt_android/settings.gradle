@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "APT Demo"
 include ':app'
+include ':apt_demo'
