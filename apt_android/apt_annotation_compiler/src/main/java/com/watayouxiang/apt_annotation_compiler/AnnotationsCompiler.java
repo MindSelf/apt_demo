@@ -137,13 +137,13 @@ public class AnnotationsCompiler extends AbstractProcessor {
                     // package com.watayouxiang.aptdemo;
                     writer.write("package " + packageName + ";\n");
                     // import com.watayouxiang.apt_annotation.IBinder;
-                    writer.write("import " + IBinder.class.getPackage().getName() + ".IBinder;\n");
+                    writer.write("import " + IBinder.class.getPackage().getName() + ".IBinder;\n\n");
                     // public class MainActivity_ViewBinding implements IBinder<com.watayouxiang.aptdemo.MainActivity>{
                     writer.write("public class " + activityName + "_ViewBinding implements IBinder<" + packageName + "." + activityName + ">{\n");
                     // @Override
                     // public void bind(com.watayouxiang.aptdemo.MainActivity target) {
-                    writer.write("  @Override\n");
-                    writer.write("  public void bind(" + packageName + "." + activityName + " target){");
+                    writer.write("\t@Override\n");
+                    writer.write("\tpublic void bind(" + packageName + "." + activityName + " target){\n");
                     // target.tvText=(android.widget.TextView)target.findViewById(2131165325);
                     for (VariableElement variableElement : variableElements) {
                         // 得到名字
@@ -152,10 +152,10 @@ public class AnnotationsCompiler extends AbstractProcessor {
                         int id = variableElement.getAnnotation(BindView.class).value();
                         // 得到类型
                         TypeMirror typeMirror = variableElement.asType();
-                        writer.write("      target." + variableName + "=(" + typeMirror + ")target.findViewById(" + id + ");\n");
+                        writer.write("\t\ttarget." + variableName + "=(" + typeMirror + ")target.findViewById(" + id + ");\n");
                     }
                     // }}
-                    writer.write("  }");
+                    writer.write("\t}\n");
                     writer.write("}");
                 } catch (Exception e) {
                     e.printStackTrace();
