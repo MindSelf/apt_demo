@@ -9,8 +9,12 @@ package com.watayouxiang.apt_annotation;
  * </pre>
  */
 public class MyButterKnife {
+    /**
+     * 相当于：new MainActivity_ViewBinding().bind(this);
+     */
     public static void bind(Object activity) {
         String name = activity.getClass().getName() + "_ViewBinding";
+        System.out.println("wataTAG: " + name);
         try {
             Class<?> aClass = Class.forName(name);
             IBinder iBinder = (IBinder) aClass.newInstance();

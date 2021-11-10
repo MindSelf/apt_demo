@@ -74,7 +74,7 @@ public class AnnotationsCompiler extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         // 日志打印
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "wata ----------- " + annotations);
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "wataTAG: " + annotations);
 
         // 1、获取APP中所有用到了BindView注解的对象
         Set<? extends Element> elementsAnnotatedWith = roundEnv.getElementsAnnotatedWith(BindView.class);
