@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.FIELD, ElementType.METHOD})// 作用在什么地方
 @Retention(RetentionPolicy.RUNTIME)// 作用范围
-public @interface BindView {
+public @interface TestAnnotation {
     String value();
 
     int id();
