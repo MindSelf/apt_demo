@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 复习注解
+ * <p>
  * 注解，单独是没有意义的。如下是具体应用场景：
  * <p>
  * 注解+APT：			用于生成一些java文件，如：butterknife, dagger2, hilt, databinding

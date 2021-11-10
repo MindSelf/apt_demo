@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *     author : TaoWang
  *     e-mail : watayouxiang@qq.com
  *     time   : 2021/11/10
- *     desc   :
+ *     desc   : 注解代替枚举
  * </pre>
  */
 public class Test {
