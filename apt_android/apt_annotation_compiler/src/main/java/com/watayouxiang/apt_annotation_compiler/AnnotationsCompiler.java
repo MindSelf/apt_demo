@@ -73,6 +73,13 @@ public class AnnotationsCompiler extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        // 1.process是怎么回调的？     SPI机制
+        // 2.调用的次数是怎么决定的？    和是否有生成文件有关系
+        // 3.返回值有什么用？          注解是否往下传递，true表示不传递set
+        if (annotations.isEmpty()) {
+            return false;
+        }
+
         // 日志打印
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "wataTAG: " + annotations);
 
