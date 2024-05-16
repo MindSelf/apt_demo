@@ -3,6 +3,7 @@ package com.watayouxiang.aptdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.watayouxiang.apt_annotation.BindView;
@@ -23,5 +24,6 @@ public class MainActivity extends AppCompatActivity {
         MyButterKnife.bind(this);
 
         textView.setText("APT 实现 ButterKnife");
+        Log.i("zlx", "onCreate");
     }
 }
