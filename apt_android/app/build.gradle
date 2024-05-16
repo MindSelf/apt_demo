@@ -37,4 +37,5 @@ dependencies {
 
     implementation project(path: ':apt_annotation')
     annotationProcessor project(path: ':apt_annotation_compiler')
+    annotationProcessor project(path: ':apt_annotation_compiler')
 }

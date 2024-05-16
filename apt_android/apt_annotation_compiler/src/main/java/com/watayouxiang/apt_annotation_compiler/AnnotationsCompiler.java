@@ -14,6 +14,7 @@ import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -35,11 +36,15 @@ public class AnnotationsCompiler extends AbstractProcessor {
 
     // 定义一个只能用来生成 APT 目录下面的文件的对象
     private Filer filer;
+    //日志打印
+    private Messager messager;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        messager = processingEnv.getMessager();
         filer = processingEnv.getFiler();
+        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler init");
     }
 
     // 支持的版本
@@ -51,7 +56,7 @@ public class AnnotationsCompiler extends AbstractProcessor {
     // 能用来处理哪些注解
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        // 只能处理 @Deprecated 类型的注解
+        // 只能处理 @BindView 类型的注解
         Set<String> types = new HashSet<>();
         types.add(BindView.class.getCanonicalName());
         return types;
@@ -73,15 +78,19 @@ public class AnnotationsCompiler extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+
+        //一共有三次：
+        //1. 扫描MainActivity、BuildConfig，发现需要处理的注解@BindView，生成新的java文件 MainActivity_ViewBinding
+        //2. 扫描MainActivity_ViewBinding，没有需要处理的注解
+        //3. 扫描结束，roundEnv.processingOver()变为true
+        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler process: annotations = " + annotations + ", env = " + roundEnv);
+
         // 1.process是怎么回调的？     SPI机制
         // 2.调用的次数是怎么决定的？    和是否有生成文件有关系
         // 3.返回值有什么用？          注解是否往下传递，true表示不传递set
         if (annotations.isEmpty()) {
             return false;
         }
-
-        // 日志打印
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "wataTAG: " + annotations);
 
         // 1、获取APP中所有用到了BindView注解的对象
         Set<? extends Element> elementsAnnotatedWith = roundEnv.getElementsAnnotatedWith(BindView.class);
@@ -107,11 +116,7 @@ public class AnnotationsCompiler extends AbstractProcessor {
             //   "TwoActivity" : {VariableElement1, VariableElement2}
             //   "ThreeActivity" : {VariableElement1}
             // ]
-            List<VariableElement> variableElements = map.get(activityName);
-            if (variableElements == null) {
-                variableElements = new ArrayList<>();
-                map.put(activityName, variableElements);
-            }
+            List<VariableElement> variableElements = map.computeIfAbsent(activityName, k -> new ArrayList<>());
             variableElements.add(variableElement);
         }
 
@@ -127,7 +132,7 @@ public class AnnotationsCompiler extends AbstractProcessor {
         //     }
         // }
         //
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             Writer writer = null;
             for (String activityName : map.keySet()) {
                 // 拿到某个 Activity 中的所有注解
@@ -165,13 +170,13 @@ public class AnnotationsCompiler extends AbstractProcessor {
                     writer.write("\t}\n");
                     writer.write("}");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
                 } finally {
                     if (writer != null) {
                         try {
                             writer.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
                         }
                     }
                 }
