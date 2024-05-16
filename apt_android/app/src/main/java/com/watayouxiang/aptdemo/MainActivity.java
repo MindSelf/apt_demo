@@ -14,16 +14,16 @@ import com.watayouxiang.apt_annotation.MyButterKnife;
  */
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.tv_text)
-    TextView textView;
+    @BindView(R.id.tv_text1)
+    TextView textView1;
+    @BindView(R.id.tv_text2)
+    TextView textView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyButterKnife.bind(this);
-
-        textView.setText("APT 实现 ButterKnife");
         Log.i("zlx", "onCreate");
     }
 }

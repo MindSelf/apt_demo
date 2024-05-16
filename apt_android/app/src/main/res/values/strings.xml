@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">APT Demo</string>
+    <string name="this_is_a_apt_test">This is a APT test!</string>
 </resources>

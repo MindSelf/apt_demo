@@ -31,7 +31,7 @@ import javax.tools.JavaFileObject;
  * <p>
  * APT: Annotation Processing Tool
  */
-@AutoService(Processor.class)
+//@AutoService(Processor.class)
 public class AnnotationsCompiler extends AbstractProcessor {
 
     // 定义一个只能用来生成 APT 目录下面的文件的对象
@@ -171,14 +171,6 @@ public class AnnotationsCompiler extends AbstractProcessor {
                     writer.write("}");
                 } catch (Exception e) {
                     messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-                } finally {
-                    if (writer != null) {
-                        try {
-                            writer.close();
-                        } catch (IOException e) {
-                            messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-                        }
-                    }
                 }
             }
         }
