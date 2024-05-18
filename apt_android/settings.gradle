@@ -10,3 +10,4 @@ rootProject.name = "APT Demo"
 include ':app'
 include ':apt_annotation'
 include ':apt_annotation_compiler'
+include ':submodule'

@@ -53,7 +53,8 @@ public class AnnotationsCompiler2 extends AbstractProcessor {
         super.init(processingEnv);
         messager = processingEnv.getMessager();
         filer = processingEnv.getFiler();
-        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler2 init");
+        Map<String, String> options = processingEnv.getOptions();
+        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler2 init：options = " + options);
     }
 
     @Override

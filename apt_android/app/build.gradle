@@ -13,6 +13,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -35,6 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation project(path: ':apt_annotation')
-    annotationProcessor project(path: ':apt_annotation_compiler')
+    implementation project(':apt_annotation')
+//    implementation project(':submodule')
+    annotationProcessor project(':apt_annotation_compiler')
 }

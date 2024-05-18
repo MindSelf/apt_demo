@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -44,7 +45,8 @@ public class AnnotationsCompiler extends AbstractProcessor {
         super.init(processingEnv);
         messager = processingEnv.getMessager();
         filer = processingEnv.getFiler();
-        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler init");
+        Map<String, String> options = processingEnv.getOptions();
+        messager.printMessage(Diagnostic.Kind.NOTE, "AnnotationsCompiler init：options = " + options);
     }
 
     // 支持的版本

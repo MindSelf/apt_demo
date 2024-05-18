@@ -26,7 +26,7 @@ import javax.tools.Diagnostic;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
-@AutoService(Processor.class)
+//@AutoService(Processor.class)
 public class AndroidLogProcessor extends AbstractProcessor {
 
     private Messager messager;
