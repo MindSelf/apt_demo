@@ -1,6 +1,10 @@
+import com.dorongold.gradle.tasktree.TaskTreePlugin
+
 plugins {
     id 'com.android.application'
 }
+
+apply plugin: TaskTreePlugin
 
 android {
     compileSdk 31
@@ -31,6 +35,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    registerTransform(new MyTransformKt())
 }
 
 dependencies {

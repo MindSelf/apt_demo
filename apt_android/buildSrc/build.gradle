@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+}
+
+repositories {
+    google()
+    mavenCentral()
+    jcenter() // Warning: this repository is going to shut down soon
+}
+
+dependencies {
+    //引入 AGP 相关 Api
+    implementation "com.android.tools.build:gradle:7.0.3"
+}
+
